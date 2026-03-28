@@ -2,6 +2,9 @@
 
 A clean and minimal **Flutter** application that converts values across multiple physical unit categories — Length, Weight, and Temperature — powered by a `Provider`-based architecture and a well-structured, layered codebase.
 
+<img width="250" alt="Untitled design" src="https://github.com/user-attachments/assets/eb38497c-bdc1-46fa-8297-033376d9ba53" />
+
+
 ---
 
 ## Features
