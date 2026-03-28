@@ -2,6 +2,10 @@
 
 A simple Flutter lottery application built with Clean Architecture principles.
 
+<td align="center">
+      <img src="https://github.com/user-attachments/assets/2bdcaa83-62bd-4fbc-84c3-e288ad209147" width="250" />
+</td>
+
 ## Features
 
 - Enter your name and select a lucky number (1-10)
