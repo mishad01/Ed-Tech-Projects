@@ -1,5 +1,8 @@
 # Music Player
 
+<img width="300" height="607" alt="Screenshot 2026-03-08 at 10 31 24 PM" src="https://github.com/user-attachments/assets/6496a592-9993-4b3e-bdf9-94dfc64ca725" />
+
+
 ## Features
 - **Top Player Section**: View current song details, control playback, and scrub through the track with a progress slider.
 - **Song List**: Browse available songs with their track number, title, and artist.
