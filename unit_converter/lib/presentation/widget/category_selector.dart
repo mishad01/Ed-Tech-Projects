@@ -10,6 +10,8 @@ class CategorySelector extends StatelessWidget {
     final provider = context.watch<ConverterProvider>();
     return Row(
       spacing: 10,
+      mainAxisAlignment: .center,
+      crossAxisAlignment: .center,
       children: List.generate(provider.categories.length, (index) {
         final category = provider.categories[index];
         final isSelected = provider.selectedCategoryIndex == index;
