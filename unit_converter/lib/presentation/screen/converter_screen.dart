@@ -4,6 +4,7 @@ import 'package:unit_converter/core/app_strings.dart';
 import 'package:unit_converter/presentation/provider/converter_provider.dart';
 import 'package:unit_converter/presentation/widget/category_selector.dart';
 import 'package:unit_converter/presentation/widget/input_field.dart';
+import 'package:unit_converter/presentation/widget/result_card.dart';
 import 'package:unit_converter/presentation/widget/unit_dropdown.dart';
 
 class ConverterScreen extends StatelessWidget {
@@ -65,6 +66,7 @@ class ConverterScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              ResultCard(),
             ],
           ),
         ),
