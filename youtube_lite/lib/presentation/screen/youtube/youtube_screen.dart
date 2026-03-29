@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_lite/presentation/core/widget/web_view_wrapper.dart';
 
 class YoutubeScreen extends StatelessWidget {
   const YoutubeScreen({super.key, required this.title, required this.url});
@@ -7,6 +8,6 @@ class YoutubeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return WebViewWrapper(url: url, title: title);
   }
 }

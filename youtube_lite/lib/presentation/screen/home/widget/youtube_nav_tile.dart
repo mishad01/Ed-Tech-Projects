@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_lite/core/constants/app_colors.dart';
 
 class YoutubeNavTile extends StatelessWidget {
   const YoutubeNavTile({
