@@ -25,6 +25,15 @@ class _HomeScreenState extends State<HomeScreen> {
   String _selectedCategory = 'Italian';
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<RecipeProvider>().fetchRecipesByCategory(_selectedCategory);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.surface,
@@ -123,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 setState(() {
                   _selectedCategory = category;
+                  print("Selected category : $category");
                 });
               },
               child: Container(
