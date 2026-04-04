@@ -7,11 +7,10 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   Future<List<Recipe>> getRecipesByCategory(String category) async {
-    final response = await http.get(
-      Uri.parse(
-        '${AppStrings.baseUrl}/complexSearch?apiKey=${AppStrings.apiKey}&cuisine=$category',
-      ),
-    );
+    final url = category == 'All'
+        ? '${AppStrings.baseUrl}/complexSearch?apiKey=${AppStrings.apiKey}'
+        : '${AppStrings.baseUrl}/complexSearch?apiKey=${AppStrings.apiKey}&cuisine=$category';
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final List results = json['results'];

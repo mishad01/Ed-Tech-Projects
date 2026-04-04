@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:recipe_book/core/app_colors.dart';
 import 'package:recipe_book/core/app_strings.dart';
 import 'package:recipe_book/presentation/provider/recipe_provider.dart';
+import 'package:recipe_book/presentation/screen/search_screen.dart';
 import 'package:recipe_book/presentation/widget/recipe_Card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> categories = [
+    'All',
     'Italian',
     'Chinese',
     'Mexican',
@@ -22,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Thai',
   ];
 
-  String _selectedCategory = 'Italian';
+  String _selectedCategory = 'All';
 
   @override
   void initState() {
@@ -65,7 +67,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          Icon(Icons.search),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchScreen()),
+              );
+            },
+            icon: Icon(Icons.search),
+          ),
           SizedBox(width: 20),
           Icon(Icons.notifications),
         ],
@@ -99,6 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }
                   return ListView.builder(
+                    padding: .zero,
+                    clipBehavior: .none,
+                    scrollDirection: .horizontal,
                     itemCount: provider.categoryRecipes.length,
                     itemBuilder: (context, index) {
                       return RecipeCard(
@@ -132,20 +145,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 setState(() {
                   _selectedCategory = category;
-                  print("Selected category : $category");
+                  context.read<RecipeProvider>().fetchRecipesByCategory(
+                    _selectedCategory,
+                  );
                 });
               },
-              child: Container(
-                padding: .symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primary : AppColors.surface,
-                  borderRadius: BorderRadius.circular(20),
-                  border: .all(
-                    color: isSelected ? AppColors.primary : AppColors.grey200,
-                    width: 1,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 8,
                   ),
-                ),
-                child: Center(
+                  decoration: BoxDecoration(
+                    color: isSelected ? AppColors.primary : AppColors.surface,
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(
+                      color: isSelected ? AppColors.primary : AppColors.grey200,
+                      width: 1,
+                    ),
+                  ),
                   child: Text(
                     categories[index],
                     style: TextStyle(
