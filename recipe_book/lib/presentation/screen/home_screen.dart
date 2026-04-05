@@ -31,7 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<RecipeProvider>().fetchRecipesByCategory(_selectedCategory);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<RecipeProvider>().fetchRecipesByCategory(_selectedCategory);
+    });
   }
 
   @override
@@ -61,6 +63,26 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Favorites'),
+                    content: Text('This feature is coming soon!'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.favorite_border),
           ),
         ],
       ),

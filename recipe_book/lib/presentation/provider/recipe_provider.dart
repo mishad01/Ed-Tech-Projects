@@ -39,4 +39,9 @@ class RecipeProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void clearSearchResults() {
+    _searchResults = [];
+    notifyListeners();
+  }
 }
