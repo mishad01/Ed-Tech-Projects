@@ -14,33 +14,38 @@ class NumberTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: .circular(15),
-        gradient: isSelected
-            ? LinearGradient(colors: AppColors.accentGradient)
-            : LinearGradient(colors: AppColors.tileGradient),
-        border: .all(
-          color: isSelected
-              ? AppColors.accentCyanLight
-              : AppColors.whiteOpacity30,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.blackOpacity10,
-            blurRadius: 15,
-            spreadRadius: 5,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: .circular(15),
+          gradient: isSelected
+              ? LinearGradient(colors: AppColors.accentGradient)
+              : LinearGradient(colors: AppColors.tileGradient),
+          border: .all(
+            color: isSelected
+                ? AppColors.accentCyanLight
+                : AppColors.whiteOpacity30,
           ),
-        ],
-      ),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: AppColors.blackOpacity10,
+                    blurRadius: 15,
+                    spreadRadius: 5,
+                  ),
+                ]
+              : [],
+        ),
 
-      child: Center(
-        child: Text(
-          '$number',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: isSelected ? Colors.white : Colors.black,
+        child: Center(
+          child: Text(
+            '$number',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: isSelected ? Colors.white : AppColors.whiteOpacity90,
+            ),
           ),
         ),
       ),

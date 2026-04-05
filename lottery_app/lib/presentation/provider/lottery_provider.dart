@@ -17,6 +17,12 @@ class LotteryProvider extends ChangeNotifier {
 
   bool isValidNumber(int? number) => number! >= 1 && number <= 10;
 
+  void setSelectedNumber(int? number) {
+    _selectedNumber = number;
+    _errorMessage = null;
+    notifyListeners();
+  }
+
   void playLottery() {
     _errorMessage = null;
 
