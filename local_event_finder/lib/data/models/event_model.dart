@@ -1,0 +1,218 @@
+import 'package:local_event_finder/domain/entities/event.dart';
+
+class EventModel {
+  EventModel._();
+  static List<Event> get sampleEvents {
+    return [
+      Event(
+        id: '1',
+        title: 'Summer Music Festival',
+        description:
+            'Join us for an amazing outdoor music festival featuring local and international artists. Enjoy live performances, food stalls, and a great atmosphere with friends and family.',
+        date: '2025-05-10',
+        time: '4:00 PM',
+        location: 'Bashundhara City, Dhaka',
+        latitude: 23.7534,
+        longitude: 90.3949,
+        category: 'Music',
+        imageUrl: 'https://picsum.photos/seed/music/800/400',
+      ),
+      Event(
+        id: '2',
+        title: 'Tech Conference 2025',
+        description:
+            'A one-day conference bringing together developers, designers, and entrepreneurs to discuss the latest trends in technology, AI, and software development.',
+        date: '2025-05-15',
+        time: '9:00 AM',
+        location: 'BUET Campus, Dhaka',
+        latitude: 23.7261,
+        longitude: 90.3914,
+        category: 'Tech',
+        imageUrl: 'https://picsum.photos/seed/tech/800/400',
+      ),
+      Event(
+        id: '3',
+        title: 'Street Food Fair',
+        description:
+            'Explore the best street food from around the country! Over 50 vendors will be serving traditional dishes, snacks, and desserts in a vibrant open-air setting by the lake.',
+        date: '2025-05-18',
+        time: '12:00 PM',
+        location: 'Hatirjheel, Dhaka',
+        latitude: 23.7593,
+        longitude: 90.4122,
+        category: 'Food',
+        imageUrl: 'https://picsum.photos/seed/food/800/400',
+      ),
+      Event(
+        id: '4',
+        title: 'Contemporary Art Exhibition',
+        description:
+            'An exhibition showcasing works from over 30 emerging and established artists. Paintings, sculptures, and digital art exploring themes of culture, identity, and the modern world.',
+        date: '2025-05-22',
+        time: '10:00 AM',
+        location: 'National Museum, Dhaka',
+        latitude: 23.7299,
+        longitude: 90.3987,
+        category: 'Art',
+        imageUrl: 'https://picsum.photos/seed/art/800/400',
+      ),
+      Event(
+        id: '5',
+        title: 'City Marathon 2025',
+        description:
+            'Participate in the annual city marathon! Open to all fitness levels with 5K, 10K, and full marathon categories. Register now and challenge yourself while supporting local charities.',
+        date: '2025-05-25',
+        time: '6:00 AM',
+        location: 'Bangabandhu Stadium, Dhaka',
+        latitude: 23.7248,
+        longitude: 90.4146,
+        category: 'Sports',
+        imageUrl: 'https://picsum.photos/seed/sports/800/400',
+      ),
+      Event(
+        id: '6',
+        title: 'Developers Meetup',
+        description:
+            'A casual evening meetup for developers to network, share knowledge, and discuss exciting projects. Lightning talks, open discussions, and free pizza included!',
+        date: '2025-05-28',
+        time: '6:30 PM',
+        location: 'Gulshan-2, Dhaka',
+        latitude: 23.7808,
+        longitude: 90.4164,
+        category: 'Community',
+        imageUrl: 'https://picsum.photos/seed/meetup/800/400',
+      ),
+
+      Event(
+        id: '7',
+        title: 'Startup Pitch Night',
+        description:
+            'Watch innovative startups pitch their ideas to investors and industry experts. Great opportunity for networking and learning about the startup ecosystem.',
+        date: '2025-06-02',
+        time: '5:00 PM',
+        location: 'Banani, Dhaka',
+        latitude: 23.7937,
+        longitude: 90.4066,
+        category: 'Business',
+        imageUrl: 'https://picsum.photos/seed/startup/800/400',
+      ),
+      Event(
+        id: '8',
+        title: 'Photography Workshop',
+        description:
+            'Learn the basics of photography including composition, lighting, and editing. Hands-on session with professional photographers.',
+        date: '2025-06-05',
+        time: '3:00 PM',
+        location: 'Dhanmondi Lake, Dhaka',
+        latitude: 23.7465,
+        longitude: 90.3760,
+        category: 'Workshop',
+        imageUrl: 'https://picsum.photos/seed/photo/800/400',
+      ),
+      Event(
+        id: '9',
+        title: 'Book Fair Meetup',
+        description:
+            'A gathering for book lovers. Share your favorite reads, meet authors, and explore new books in a friendly environment.',
+        date: '2025-06-08',
+        time: '4:30 PM',
+        location: 'Bangla Academy, Dhaka',
+        latitude: 23.7341,
+        longitude: 90.3925,
+        category: 'Literature',
+        imageUrl: 'https://picsum.photos/seed/books/800/400',
+      ),
+      Event(
+        id: '10',
+        title: 'Yoga & Wellness Session',
+        description:
+            'Start your morning with a refreshing yoga session guided by certified instructors. Suitable for beginners and experienced participants.',
+        date: '2025-06-10',
+        time: '7:00 AM',
+        location: 'Ramna Park, Dhaka',
+        latitude: 23.7392,
+        longitude: 90.4107,
+        category: 'Health',
+        imageUrl: 'https://picsum.photos/seed/yoga/800/400',
+      ),
+      Event(
+        id: '11',
+        title: 'Gaming Tournament',
+        description:
+            'Compete in popular multiplayer games and win exciting prizes. Open for all gamers with different skill levels.',
+        date: '2025-06-12',
+        time: '2:00 PM',
+        location: 'Uttara Sector 7, Dhaka',
+        latitude: 23.8759,
+        longitude: 90.3795,
+        category: 'Gaming',
+        imageUrl: 'https://picsum.photos/seed/gaming/800/400',
+      ),
+      Event(
+        id: '12',
+        title: 'Film Screening Night',
+        description:
+            'Enjoy an outdoor movie night featuring award-winning films. Bring your friends and relax under the stars.',
+        date: '2025-06-15',
+        time: '7:30 PM',
+        location: 'Shilpakala Academy, Dhaka',
+        latitude: 23.7310,
+        longitude: 90.3959,
+        category: 'Entertainment',
+        imageUrl: 'https://picsum.photos/seed/movie/800/400',
+      ),
+      Event(
+        id: '13',
+        title: 'AI & Machine Learning Workshop',
+        description:
+            'Hands-on workshop covering basics of AI, machine learning models, and real-world applications.',
+        date: '2025-06-18',
+        time: '10:00 AM',
+        location: 'NSU Campus, Dhaka',
+        latitude: 23.8151,
+        longitude: 90.4257,
+        category: 'Tech',
+        imageUrl: 'https://picsum.photos/seed/ai/800/400',
+      ),
+      Event(
+        id: '14',
+        title: 'Charity Fundraising Gala',
+        description:
+            'An elegant evening event to raise funds for local charities. Includes dinner, performances, and auctions.',
+        date: '2025-06-20',
+        time: '8:00 PM',
+        location: 'Pan Pacific Sonargaon, Dhaka',
+        latitude: 23.7516,
+        longitude: 90.3928,
+        category: 'Charity',
+        imageUrl: 'https://picsum.photos/seed/charity/800/400',
+      ),
+      Event(
+        id: '15',
+        title: 'Cycling Rally',
+        description:
+            'Join fellow cyclists for a fun and energetic ride across the city. Promote fitness and eco-friendly transport.',
+        date: '2025-06-22',
+        time: '6:00 AM',
+        location: 'Hatirjheel, Dhaka',
+        latitude: 23.7593,
+        longitude: 90.4122,
+        category: 'Sports',
+        imageUrl: 'https://picsum.photos/seed/cycling/800/400',
+      ),
+      Event(
+        id: '16',
+        title: 'Freelancers Networking Meetup',
+        description:
+            'Meet freelancers from different industries, share experiences, and find collaboration opportunities.',
+        date: '2025-06-25',
+        time: '5:30 PM',
+        location: 'Mirpur DOHS, Dhaka',
+        latitude: 23.8223,
+        longitude: 90.3654,
+        category: 'Community',
+        imageUrl: 'https://picsum.photos/seed/freelance/800/400',
+      ),
+    ];
+  }
+}
