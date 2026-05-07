@@ -25,9 +25,12 @@ class HomeMenuItemModel extends HomeMenuItem {
     );
   }
 
+  //
+
   // ---------------------------------------------------------------------------
   // Static sample data — the 16 bKash home menu items
   // ---------------------------------------------------------------------------
+
   static List<HomeMenuItemModel> get sampleData => [
     const HomeMenuItemModel(
       id: 1,
@@ -128,7 +131,7 @@ class HomeMenuItemModel extends HomeMenuItem {
   ];
 }
 
-  /// Converts to a plain Map (e.g., for JSON serialization).
-  // Map<String, dynamic> toMap() {
-  //   return {'id': id, 'label': label};
-  // }
+/// Converts to a plain Map (e.g., for JSON serialization).
+// Map<String, dynamic> toMap() {
+//   return {'id': id, 'label': label};
+// }
