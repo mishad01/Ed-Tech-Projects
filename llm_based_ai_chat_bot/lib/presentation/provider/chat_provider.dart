@@ -34,11 +34,15 @@ class ChatProvider extends ChangeNotifier {
       _messages.add(
         MessageModel(role: 'assistant', text: replyText, time: DateTime.now()),
       );
-    } on TimeoutException {
+    } on TimeoutException catch (e) {
+      print('[Chat] TimeoutException: $e');
       _errorMessage = AppStrings.errorTimeout;
-    } on SocketException {
+    } on SocketException catch (e) {
+      print('[Chat] SocketException: $e');
       _errorMessage = AppStrings.errorNoInternet;
-    } catch (e) {
+    } catch (e, stack) {
+      print('[Chat] Unexpected error: $e');
+      print('[Chat] Stack trace: $stack');
       _errorMessage = AppStrings.errorGeneral;
     } finally {
       _isLoading = false;

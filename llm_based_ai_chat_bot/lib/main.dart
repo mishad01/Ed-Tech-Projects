@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:llm_based_ai_chat_bot/presentation/provider/chat_provider.dart';
+import 'package:llm_based_ai_chat_bot/presentation/provider/image_gen_provider.dart';
 import 'package:llm_based_ai_chat_bot/presentation/screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -10,15 +11,17 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ChatProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
+        ChangeNotifierProvider(create: (_) => ImageGenProvider()),
+      ],
       child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-        home: SplashScreen(),
+        title: 'AI Chat Bot',
+        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
+        home: const SplashScreen(),
       ),
     );
   }

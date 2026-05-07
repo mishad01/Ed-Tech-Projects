@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:llm_based_ai_chat_bot/core/constans/app_colors.dart';
 import 'package:llm_based_ai_chat_bot/core/constans/app_strings.dart';
-import 'package:llm_based_ai_chat_bot/presentation/screen/chat_screen.dart';
+import 'package:llm_based_ai_chat_bot/presentation/screen/image_gen_screen.dart';
+import 'package:llm_based_ai_chat_bot/presentation/screen/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +18,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _animationController = AnimationController(
       vsync: this,
@@ -29,10 +29,11 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward();
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => ChatScreen()),
+        MaterialPageRoute(builder: (_) => const MainScreen()),
       );
     });
   }

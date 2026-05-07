@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:llm_based_ai_chat_bot/core/constans/app_colors.dart';
-import 'package:llm_based_ai_chat_bot/domain/entities/message_entity.dart';
 import 'package:llm_based_ai_chat_bot/presentation/provider/chat_provider.dart';
 import 'package:llm_based_ai_chat_bot/presentation/widget/chat_input_field.dart';
 import 'package:llm_based_ai_chat_bot/presentation/widget/empty_chat.dart';

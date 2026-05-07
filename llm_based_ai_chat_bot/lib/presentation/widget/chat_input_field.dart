@@ -5,11 +5,15 @@ import 'package:llm_based_ai_chat_bot/core/constans/app_strings.dart';
 class ChatInputField extends StatefulWidget {
   final void Function(String text) onSend;
   final bool isLoading;
+  final String? hintText;
+  final IconData? sendIcon;
 
   const ChatInputField({
     super.key,
     required this.onSend,
     required this.isLoading,
+    this.hintText,
+    this.sendIcon,
   });
 
   @override
@@ -60,7 +64,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                 minLines: 1,
                 onSubmitted: (_) => _handleSend(),
                 decoration: InputDecoration(
-                  hintText: AppStrings.inputHint,
+                  hintText: widget.hintText ?? AppStrings.inputHint,
                   hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: AppColors.background,
@@ -97,8 +101,8 @@ class _ChatInputFieldState extends State<ChatInputField> {
                           color: Colors.white,
                         ),
                       )
-                    : const Icon(
-                        Icons.send_rounded,
+                    : Icon(
+                        widget.sendIcon ?? Icons.send_rounded,
                         color: Colors.white,
                         size: 22,
                       ),
