@@ -1,3 +1,4 @@
+import 'package:bkash_app/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -104,6 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: .center,
           children: [
+            Image(
+              image: AssetImage('assets/bkash.png'),
+              width: 200,
+              color: AppColors.primary,
+            ),
             const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
