@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:local_event_finder/presentation/provider/event_provider.dart';
+import 'package:local_event_finder/presentation/screens/event/event_details.dart';
+import 'package:local_event_finder/presentation/screens/home/widget/event_card.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,6 +12,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<EventProvider>().loadEvent();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,15 +46,17 @@ class _HomeScreenState extends State<HomeScreen> {
             itemCount: provider.events.length,
             itemBuilder: (context, index) {
               final event = provider.events[index];
-              return ListTile(
-                leading: Image.network(
-                  event.imageUrl,
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
-                ),
-                title: Text(event.title),
-                subtitle: Text('${event.date} at ${event.time}'),
+
+              return EventCard(
+                event: event,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EventDetails(eventId: event.id),
+                    ),
+                  );
+                },
               );
             },
           );

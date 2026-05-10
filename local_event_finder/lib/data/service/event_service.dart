@@ -2,7 +2,7 @@ import 'package:local_event_finder/domain/entities/event.dart';
 
 class EventService {
   Future<List<Event>> getAllEvents() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     return _dummyEvents;
   }
 

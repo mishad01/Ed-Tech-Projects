@@ -23,6 +23,6 @@ Color getCategoryColor(String category) {
     case 'film':
       return Colors.deepPurple;
     default:
-      return Colors.grey;
+      return Colors.deepPurple;
   }
 }
