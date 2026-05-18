@@ -16,7 +16,7 @@ class MovieCard extends StatelessWidget {
           height: 200,
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.1),
+            color: Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(

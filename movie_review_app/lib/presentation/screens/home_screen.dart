@@ -3,6 +3,7 @@ import 'package:movie_review_app/core/app_colors.dart';
 import 'package:movie_review_app/presentation/provider/movie_provider.dart';
 import 'package:movie_review_app/presentation/screens/movie_card.dart';
 import 'package:movie_review_app/presentation/screens/movie_details.dart';
+import 'package:movie_review_app/presentation/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,30 +37,48 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: AppColors.primary,
-      ),
-      body: Consumer<MovieProvider>(
-        builder: (context, provider, child) {
-          if (provider.isLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
-          return ListView.builder(
-            itemCount: provider.trendingMovies.length,
-            itemBuilder: (context, index) {
-              return MovieCard(
-                movie: provider.trendingMovies[index],
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          MovieDetails(movie: provider.trendingMovies[index]),
-                    ),
-                  );
-                },
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchScreen()),
               );
             },
-          );
-        },
+            icon: Icon(Icons.search, color: Colors.white),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Consumer<MovieProvider>(
+            builder: (context, provider, child) {
+              if (provider.isLoading) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: provider.trendingMovies.length,
+                  itemBuilder: (context, index) {
+                    return MovieCard(
+                      movie: provider.trendingMovies[index],
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MovieDetails(
+                              movie: provider.trendingMovies[index],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
