@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:llm_chat_app/core/constans/app_colors.dart';
 import 'package:llm_chat_app/core/constans/app_strings.dart';
 import 'package:llm_chat_app/presentation/screen/chat_screen.dart';
+import 'package:llm_chat_app/presentation/screen/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const ChatScreen()),
+        MaterialPageRoute(builder: (_) => const MainScreen()),
       );
     });
   }

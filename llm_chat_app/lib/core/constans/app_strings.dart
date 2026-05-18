@@ -18,4 +18,10 @@ class AppStrings {
   static const String model = 'google/gemini-3.1-flash-lite';
   static const String systemPrompt =
       'You are a helpful and friendly AI assistant.';
+
+  // Image Generation API
+  static const String imageGenApiKey =
+      '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';
+  static const String imageGenBaseUrl = 'https://openrouter.ai/api/v1';
+  static const String imageGenModel = 'google/gemini-2.5-flash-image';
 }
