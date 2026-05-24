@@ -1,86 +1,168 @@
 # Music Player
 
-<img width="300" height="607" alt="Screenshot 2026-03-08 at 10 31 24 PM" src="https://github.com/user-attachments/assets/6496a592-9993-4b3e-bdf9-94dfc64ca725" />
+A Flutter audio player app that streams songs from remote URLs and provides full playback controls. Built to demonstrate the `audioplayers` package, Provider-driven media state, and feature-based architecture with a clean domain/data separation.
 
+<img width="300" height="607" alt="Music Player Screenshot" src="https://github.com/user-attachments/assets/6496a592-9993-4b3e-bdf9-94dfc64ca725" />
 
 ## Features
-- **Top Player Section**: View current song details, control playback, and scrub through the track with a progress slider.
-- **Song List**: Browse available songs with their track number, title, and artist.
-- **Seamless Playback**: Instant playback updates when selecting a song from the list, with state synchronized across the app.
-- **Audio Controls**: Play, pause, skip forward, or go back to the previous track effortlessly.
+
+- **Song list** — Browse a playlist of tracks showing track number, title, and artist.
+- **Player controller** — Persistent top section with play/pause, previous, and next controls plus a seek slider.
+- **Streaming playback** — Songs are streamed from remote URLs via `audioplayers`; no local file storage required.
+- **Circular playlist navigation** — Next wraps to the first track; previous wraps to the last.
+- **Auto-advance** — Automatically plays the next song when the current one finishes.
+- **Real-time progress** — Seek bar and position label update continuously during playback.
+- **Selected track highlight** — The currently playing song is visually distinguished in the list.
+
+---
 
 ## Architecture
-This project follows **Clean Architecture** combined with a **Feature-based** folder structure. It enforces a strict separation of concerns into distinct layers:
-- **Core**: Contains app-wide constants (colors, strings, etc.) and shared utilities.
-- **Domain**: Houses core business logic and entities (e.g., `Song` object).
-- **Data**: Manages data models and data sources (e.g., hardcoded sample songs).
-- **Presentation**: Manages the UI layer, organized by screen/feature (e.g., `home`), including its widgets and state providers.
+
+The project follows a **feature-based presentation layer** over a shared `core` and clean `domain`/`data` separation.
+
+```
+App
+├── core/
+│   └── constants/          # AppColors, AppStrings
+├── data/
+│   └── model/              # SongModel (static sample songs + URL data)
+├── domain/
+│   └── entities/           # Song (pure entity: title, artist, url, durationSeconds)
+└── presentation/
+    └── screen/
+        └── home/
+            ├── provider/   # MediaProvider (AudioPlayer lifecycle, playback state)
+            ├── widget/     # PlayerController, SongListItem
+            └── home_screen.dart
+```
+
+**Key architectural decisions:**
+
+| Decision | Rationale |
+|---|---|
+| `AudioPlayer` owned exclusively by `MediaProvider` | Centralizes lifecycle management; widgets never touch the player directly |
+| Circular index arithmetic `(i ± 1 + n) % n` | Handles wrap-around without conditional branches in next/previous methods |
+| `_setAudioSource` separates load from play | Allows preloading the first track silently without starting playback on launch |
+| Duration set from model immediately on song change | UI shows the correct total time before the audio engine confirms it asynchronously |
+
+---
 
 ## Tech Stack
-- **Flutter** & **Dart**
-- **audioplayers**: Core engine for audio playback.
-- **http**: For resolving external media URLs.
-- **provider**: For robust, reactive state management.
+
+| Technology | Version | Purpose |
+|---|---|---|
+| Flutter | >= 3.x | Cross-platform UI framework |
+| Dart | ^3.10.8 | Primary programming language |
+| `provider` | ^6.1.5+1 | State management |
+| `audioplayers` | ^6.6.0 | Audio streaming and playback control |
+| `http` | ^1.6.0 | URL resolution for remote audio sources |
+| Material 3 | Built-in | Design system and theming |
+
+---
 
 ## Getting Started
 
 ### Prerequisites
-- Flutter SDK `^3.10.8` or later.
-- Dart SDK `^3.1.0` or later.
-- A compatible IDE (VS Code, Android Studio, or IntelliJ IDEA).
+
+- Flutter SDK `>=3.10.8`
+- Dart SDK `^3.10.8`
+- Android Studio or VS Code with the Flutter extension
+- A connected device or emulator (Android or iOS)
+- An active internet connection (songs stream from remote URLs)
 
 ### Installation
-1. Clone the repository:
+
+1. **Clone the repository**
+
    ```bash
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```bash
+   git clone https://github.com/<your-username>/music_player.git
    cd music_player
    ```
-3. Install dependencies:
+
+2. **Install dependencies**
+
    ```bash
    flutter pub get
    ```
 
 ### Run Commands
-Run the app on your preferred platform:
 
-**Android / iOS (Mobile):**
+| Platform | Command |
+|---|---|
+| Android | `flutter run` (with Android emulator or device connected) |
+| iOS | `flutter run` (with iOS Simulator or device, requires macOS) |
+| List devices | `flutter devices` |
+
+**iOS — additional step (first time only):**
+
 ```bash
+cd ios
+pod install
+cd ..
 flutter run
 ```
-**Web:**
-```bash
-flutter run -d chrome
-```
+
+---
 
 ## Project Structure
-```text
-lib/
-├── core/
-│   └── constants/                 # AppColors, AppStrings
-├── data/
-│   └── model/                     # Data transfer objects (SongModel)
-├── domain/
-│   └── entities/                  # Core business models (Song)
-├── presentation/
-│   └── screen/
-│       └── home/                  # Home feature
-│           ├── provider/          # State management (MediaProvider)
-│           ├── widget/            # Reusable UI components (PlayerController, SongListItem)
-│           └── home_screen.dart   # Main screen UI
-└── main.dart                      # App entry point
+
+```
+music_player/
+├── lib/
+│   ├── main.dart                              # App entry point and MaterialApp setup
+│   ├── core/
+│   │   └── constants/
+│   │       ├── app_colors.dart                # Centralized color palette
+│   │       └── app_strings.dart               # All UI strings and app name
+│   ├── data/
+│   │   └── model/
+│   │       └── song_model.dart                # Static sample playlist with stream URLs
+│   ├── domain/
+│   │   └── entities/
+│   │       └── song.dart                      # Pure Song entity
+│   └── presentation/
+│       └── screen/
+│           └── home/
+│               ├── home_screen.dart           # AppBar + PlayerController + song list
+│               ├── provider/
+│               │   └── media_provider.dart    # AudioPlayer lifecycle and playback state
+│               └── widget/
+│                   ├── player_controller.dart # Play/pause, prev/next, seek slider
+│                   └── song_list_item.dart    # Individual track row with selection state
+├── android/
+├── ios/
+├── test/
+├── pubspec.yaml
+└── README.md
 ```
 
+---
+
 ## Usage / How It Works
-1. **Launch**: Open the app to view the comprehensive media player interface.
-2. **Browse**: Scroll through the list of available audio tracks in the bottom section.
-3. **Play**: Tap any song to instantly load and start playback.
-4. **Control**: Use the top player section to pause/play, skip, or drag the progress slider to seek through the active track.
+
+1. **Launch** — The home screen shows the player controller at the top and the full playlist below. The first song is pre-loaded but not playing.
+2. **Tap a song** — `MediaProvider.playSongAtIndex` loads the selected track and starts streaming immediately.
+3. **Play / Pause** — Tap the play/pause button in the controller to toggle playback.
+4. **Skip** — Tap next or previous to move through the playlist; it wraps around at both ends.
+5. **Seek** — Drag the progress slider to jump to any point in the current track.
+6. **Auto-advance** — When a song ends, the player automatically loads and plays the next track.
+
+---
 
 ## Contributing
+
 This is an educational project. Feel free to fork and experiment!
 
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m "feat: describe your change"`
+4. Push to your branch: `git push origin feature/your-feature-name`
+5. Open a Pull Request.
+
+Please keep pull requests focused and well-described.
+
+---
+
 ## License
-This project is created for educational purposes as part of Ostad Batch 11.
+
+This project is created for educational purposes as part of **Ostad Batch 14**.
