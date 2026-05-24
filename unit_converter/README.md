@@ -1,63 +1,57 @@
-# Unit Converter App
+# Unit Converter
 
-A clean and minimal **Flutter** application that converts values across multiple physical unit categories — Length, Weight, and Temperature — powered by a `Provider`-based architecture and a well-structured, layered codebase.
+A minimal Flutter unit conversion app supporting Length, Weight, and Temperature categories. Built to demonstrate clean Provider-driven reactive state, a self-contained conversion engine, and a fully composable widget layout — with no third-party math libraries.
 
-<img width="250" alt="Untitled design" src="https://github.com/user-attachments/assets/eb38497c-bdc1-46fa-8297-033376d9ba53" />
-
-
----
+<img width="250" alt="Unit Converter Screenshot" src="https://github.com/user-attachments/assets/eb38497c-bdc1-46fa-8297-033376d9ba53" />
 
 ## Features
 
-- **Length** — Meter, Kilometer, Mile, Foot, Inch, Centimeter
-- **Weight** — Kilogram, Gram, Pound, Ounce
-- **Temperature** — Celsius, Fahrenheit, Kelvin
-- Swap "From" and "To" units with a single tap
-- Real-time conversion as you type
-- Themed with Material 3 color system
-
----
-
-## Project Structure
-
-```
-lib/
-├── core/
-│   ├── app_colors.dart        # Centralized color constants
-│   └── app_strings.dart       # All static UI text strings
-├── data/
-│   └── models/
-│       └── unit_category_model.dart   # Data model + conversion logic
-├── domain/
-│   └── entities/
-│       └── unit_category.dart         # Abstract entity class
-├── presentation/
-│   ├── provider/
-│   │   └── converter_provider.dart    # State management (ChangeNotifier)
-│   ├── screen/
-│   │   └── converter_screen.dart      # Main screen
-│   └── widget/
-│       ├── category_selector.dart     # Category chip selector
-│       ├── input_field.dart           # Numeric input
-│       ├── result_card.dart           # Conversion result display
-│       └── unit_drop_down.dart        # From / To unit dropdowns
-└── main.dart
-```
+- **Three categories** — Length (Meter, Kilometer, Mile, Foot, Inch, Centimeter), Weight (Kilogram, Gram, Pound, Ounce), and Temperature (Celsius, Fahrenheit, Kelvin).
+- **Category selector** — Chip-style row that switches the active unit set instantly.
+- **From / To dropdowns** — Independent unit selectors with a swap button to reverse the conversion direction in one tap.
+- **Live conversion** — Result updates reactively as you type without any submit button.
+- **Smart number formatting** — Trailing zeros and dangling decimal points are trimmed from the output.
+- **Self-contained conversion engine** — All conversion formulas live in `UnitCategoryModel`; no external packages required.
 
 ---
 
 ## Architecture
 
-The app follows a **layered architecture** pattern:
+The project follows a **feature-based presentation layer** over a shared `core` and clean `domain`/`data` separation.
 
-| Layer | Responsibility |
+```
+App
+├── core/               # AppColors, AppStrings (labels, hints)
+├── data/
+│   └── model/          # UnitCategoryModel (static category data + all conversion logic)
+├── domain/
+│   └── entities/       # UnitCategory (pure entity: name, icon, unit list)
+└── presentation/
+    ├── provider/       # ConverterProvider (selected category, units, input, result)
+    └── screen/
+        ├── converter_screen.dart
+        └── widget/     # CategorySelector, InputField, UnitDropdown, ResultCard
+```
+
+**Key architectural decisions:**
+
+| Decision | Rationale |
 |---|---|
-| `domain` | Abstract entities — pure Dart, no dependencies |
-| `data` | Concrete models extending domain entities + conversion math |
-| `presentation` | UI widgets, screens, and Provider-based state |
-| `core` | Shared constants (colors, strings) used across all layers |
+| All conversion math in `UnitCategoryModel` | Keeps the provider thin; formulas are testable independently of any Flutter widget |
+| Length and Weight convert via an intermediate base unit (meters / kg) | Avoids an N×N conversion table; adding a new unit only requires two new cases |
+| `ConverterProvider.result` is a computed getter | No separate state field to keep in sync; recomputes on every rebuild |
+| `swap()` method on the provider | Encapsulates the unit reversal; the UI just calls one method |
 
-State is managed with **Provider** (`ChangeNotifierProvider`), keeping the UI fully reactive and decoupled from business logic.
+---
+
+## Tech Stack
+
+| Technology | Version | Purpose |
+|---|---|---|
+| Flutter | >= 3.x | Cross-platform UI framework |
+| Dart | ^3.10.8 | Primary programming language |
+| `provider` | ^6.1.5+1 | State management |
+| Material 3 | Built-in | Design system and theming |
 
 ---
 
@@ -65,50 +59,103 @@ State is managed with **Provider** (`ChangeNotifierProvider`), keeping the UI fu
 
 ### Prerequisites
 
-- [Flutter SDK](https://flutter.dev/docs/get-started/install) >= 3.10.x
+- Flutter SDK `>=3.10.8`
 - Dart SDK `^3.10.8`
+- Android Studio or VS Code with the Flutter extension
+- A connected device or emulator (Android or iOS)
 
-### Run Locally
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/<your-username>/unit_converter.git
+   cd unit_converter
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   flutter pub get
+   ```
+
+### Run Commands
+
+| Platform | Command |
+|---|---|
+| Android | `flutter run` (with Android emulator or device connected) |
+| iOS | `flutter run` (with iOS Simulator or device, requires macOS) |
+| List devices | `flutter devices` |
+
+**iOS — additional step (first time only):**
 
 ```bash
-# Clone the repository
-git clone <your-repo-url>
-cd uni_converter_app
-
-# Install dependencies
-flutter pub get
-
-# Run in debug mode
+cd ios
+pod install
+cd ..
 flutter run
 ```
 
-### Build
+---
 
-```bash
-# Android APK
-flutter build apk --release
+## Project Structure
 
-# iOS (macOS only)
-flutter build ios --release
+```
+unit_converter/
+├── lib/
+│   ├── main.dart
+│   ├── core/
+│   │   ├── app_colors.dart
+│   │   └── app_strings.dart
+│   ├── data/
+│   │   └── model/
+│   │       └── unit_category_model.dart   # Static categories + full conversion engine
+│   ├── domain/
+│   │   └── entities/
+│   │       └── unit_category.dart
+│   └── presentation/
+│       ├── provider/
+│       │   └── converter_provider.dart
+│       └── screen/
+│           ├── converter_screen.dart
+│           └── widget/
+│               ├── category_selector.dart
+│               ├── input_field.dart
+│               ├── unit_drop_down.dart
+│               └── result_card.dart
+├── android/
+├── ios/
+├── test/
+├── pubspec.yaml
+└── README.md
 ```
 
 ---
 
-## Dependencies
+## Usage / How It Works
 
-| Package | Version | Purpose |
-|---|---|---|
-| [provider](https://pub.dev/packages/provider) | `^6.1.5` | State management |
-| [cupertino_icons](https://pub.dev/packages/cupertino_icons) | `^1.0.8` | iOS-style icons |
-| [flutter_lints](https://pub.dev/packages/flutter_lints) | `^6.0.0` | Lint rules (dev) |
+1. **Select a category** — Tap a chip (Length, Weight, or Temperature) to switch the active unit set.
+2. **Enter a value** — Type a number in the input field. The result card updates instantly.
+3. **Choose units** — Select the source unit in the "From" dropdown and the target unit in the "To" dropdown.
+4. **Swap** — Tap the swap icon to reverse From and To in one tap.
+5. **Read the result** — The result card shows the converted value with trailing zeros removed.
 
 ---
-
 
 ## Contributing
 
 This is an educational project. Feel free to fork and experiment!
 
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m "feat: describe your change"`
+4. Push to your branch: `git push origin feature/your-feature-name`
+5. Open a Pull Request.
+
+Please keep pull requests focused and well-described.
+
+---
+
 ## License
 
-This project is created for educational purposes as part of Ostad Batch 12.
+This project is created for educational purposes as part of **Ostad Batch 12**.
