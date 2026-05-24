@@ -1,6 +1,6 @@
-# Lottery App 🎰
+# Lottery App
 
-A simple Flutter lottery application built with Clean Architecture principles.
+A simple Flutter lottery game built with Clean Architecture principles. Enter your name, pick a lucky number, and see if you win — built to demonstrate layered architecture, Provider state management, and multi-screen navigation.
 
 <td align="center">
       <img src="https://github.com/user-attachments/assets/2bdcaa83-62bd-4fbc-84c3-e288ad209147" width="250" />
@@ -8,96 +8,155 @@ A simple Flutter lottery application built with Clean Architecture principles.
 
 ## Features
 
-- Enter your name and select a lucky number (1-10)
-- Instant lottery draw with random number generation
-- Win/lose results with visual feedback
-- Play again functionality
+- **Name entry** — Optionally enter your name before playing.
+- **Number picker** — Choose a lucky number between 1 and 10 using a visual tile grid.
+- **Lottery draw** — Instant random number generation against your pick.
+- **Result screen** — Win/lose outcome displayed with a result icon and number comparison cards.
+- **Play again** — One-tap reset back to the entry screen.
+- **Error banner** — Inline validation when no number is selected before submitting.
+- **Gradient scaffold** — Shared gradient background widget applied across all screens for a consistent look.
+
+---
 
 ## Architecture
 
-This app follows **Clean Architecture** with three layers:
+The project follows **Clean Architecture** with three distinct layers and no cross-layer leakage.
 
-- **Domain Layer**: Business logic and entities
-- **Data Layer**: Repository implementation
-- **Presentation Layer**: UI screens and state management
+```
+App
+├── core/               # App-wide colors and string constants
+├── domain/
+│   └── entities/       # LotteryResult (pure data, no Flutter dependency)
+├── data/               # Repository layer (expandable for future persistence)
+└── presentation/
+    ├── provider/       # LotteryProvider (state: name, selected number, result)
+    ├── screen/         # HomeScreen, EntryScreen, ResultScreen
+    └── widget/         # GradientScaffold, NumberTile, ResultIcon, ResultNumberCard, ErrorBanner
+```
+
+**Key architectural decisions:**
+
+| Decision | Rationale |
+|---|---|
+| `LotteryResult` lives in the domain layer | Business data stays framework-free and independently testable |
+| `LotteryProvider` owns all game state | Single source of truth; screens only read and dispatch actions |
+| `GradientScaffold` shared widget | Eliminates repeated gradient decoration across all three screens |
+| `NumberTile` parameterized by selected state | Keeps selection logic in the provider, not the widget |
+
+---
 
 ## Tech Stack
 
-- **Flutter** - UI framework
-- **Provider** - State management
-- **Dart** - Programming language
+| Technology | Version | Purpose |
+|---|---|---|
+| Flutter | >= 3.x | Cross-platform UI framework |
+| Dart | ^3.10.8 | Primary programming language |
+| `provider` | ^6.1.5+1 | State management |
+| Material 3 | Built-in | Design system and theming |
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-- Flutter SDK (3.10.8 or higher)
-- Dart SDK
-- IDE (VS Code, Android Studio, or IntelliJ)
+- Flutter SDK `>=3.10.8`
+- Dart SDK `^3.10.8`
+- Android Studio or VS Code with the Flutter extension
+- A connected device or emulator (Android or iOS)
 
 ### Installation
 
-1. Clone or download this project
-2. Navigate to project directory:
+1. **Clone the repository**
+
    ```bash
-   cd lottery_test
+   git clone https://github.com/<your-username>/lottery_app.git
+   cd lottery_app
    ```
-3. Install dependencies:
+
+2. **Install dependencies**
+
    ```bash
    flutter pub get
    ```
-4. Run the app:
-   ```bash
-   flutter run
-   ```
 
-### Running on Different Platforms
+### Run Commands
+
+| Platform | Command |
+|---|---|
+| Android | `flutter run` (with Android emulator or device connected) |
+| iOS | `flutter run` (with iOS Simulator or device, requires macOS) |
+| macOS | `flutter run -d macos` |
+| Chrome (Web) | `flutter run -d chrome` |
+| List devices | `flutter devices` |
+
+**iOS — additional step (first time only):**
 
 ```bash
-# macOS
-flutter run -d macos
-
-# Chrome (Web)
-flutter run -d chrome
-
-# iOS Simulator
-flutter run -d ios
-
-# Android Emulator
-flutter run -d android
+cd ios
+pod install
+cd ..
+flutter run
 ```
+
+---
 
 ## Project Structure
 
 ```
-lib/
-├── domain/              # Business Logic
-│   ├── entities/        # LotteryResult
-│   └── usecases/        # PlayLotteryUseCase
-├── data/                # Data Layer
-│   └── repositories/    # LotteryRepositoryImpl
-└── presentation/        # UI Layer
-    ├── core/            # Shared UI components
-    ├── providers/       # LotteryProvider (State Management)
-    └── screens/         # HomeScreen, EntryScreen, ResultScreen
+lottery_app/
+├── lib/
+│   ├── main.dart                          # App entry point and MaterialApp setup
+│   ├── core/
+│   │   ├── app_colors.dart                # Centralized color palette
+│   │   └── app_strings.dart               # All UI strings
+│   ├── domain/
+│   │   └── entities/
+│   │       └── lottery_result.dart        # Win/lose result entity
+│   └── presentation/
+│       ├── provider/
+│       │   └── lottery_provider.dart      # Game state: name, number, result, draw logic
+│       ├── screen/
+│       │   ├── home_screen.dart           # Entry point — "Play Lottery" button
+│       │   ├── entry_screen.dart          # Name input + number tile grid
+│       │   └── result_screen.dart         # Win/lose result display
+│       └── widget/
+│           ├── gradient_scaffold.dart     # Shared gradient background scaffold
+│           ├── number_tile.dart           # Selectable number tile (1–10)
+│           ├── result_icon.dart           # Trophy or X icon based on result
+│           ├── result_number_card.dart    # Side-by-side your number vs winning number
+│           └── error_banner.dart         # Inline validation message
+├── android/
+├── ios/
+├── test/
+├── pubspec.yaml
+└── README.md
 ```
 
-## How to Play
+---
 
-1. **Home Screen**: Click "Play Lottery"
-2. **Entry Screen**: 
-   - Optionally enter your name
-   - Select a number (1-10)
-   - Click "Submit"
-3. **Result Screen**: 
-   - View your number vs winning number
-   - See if you won! 🎉
-   - Click "Try Again" to replay
+## Usage / How It Works
+
+1. **Home Screen** — Tap **Play Lottery** to begin.
+2. **Entry Screen** — Optionally enter your name, then tap a number tile (1–10) to select your pick. Tap **Submit**.
+3. **Result Screen** — See your number vs the randomly generated winning number. A trophy icon means you won; an X means try again. Tap **Try Again** to return to the entry screen.
+
+---
 
 ## Contributing
 
 This is an educational project. Feel free to fork and experiment!
 
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m "feat: describe your change"`
+4. Push to your branch: `git push origin feature/your-feature-name`
+5. Open a Pull Request.
+
+Please keep pull requests focused and well-described.
+
+---
+
 ## License
 
-This project is created for educational purposes as part of Ostad Batch 11.
+This project is created for educational purposes as part of **Ostad Batch 11**.
