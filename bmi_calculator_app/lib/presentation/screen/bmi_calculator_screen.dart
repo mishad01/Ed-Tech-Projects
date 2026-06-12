@@ -1,7 +1,7 @@
 import 'package:bmi_calculator_app/core/colors/app_colors.dart';
 import 'package:bmi_calculator_app/presentation/widget/bmi_reference_table.dart';
 import 'package:bmi_calculator_app/presentation/widget/input_card.dart';
-import 'package:bmi_calculator_app/presentation/widget/result_Card.dart';
+import 'package:bmi_calculator_app/presentation/widget/result_card.dart';
 import 'package:flutter/material.dart';
 
 class BmiCalculatorScreen extends StatefulWidget {
@@ -99,12 +99,15 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
                     child: Text('Calculate BMI'),
                   ),
 
-                  if (_bmi != null)
+                  if (_bmi != null) ...[
                     ResultCard(
                       bmi: _bmi!,
                       category: _category!,
                       categoryColor: _categoryColor,
                     ),
+
+                    TextButton(onPressed: reset, child: Text('Reset')),
+                  ],
 
                   BmiReferenceTable(),
                 ],

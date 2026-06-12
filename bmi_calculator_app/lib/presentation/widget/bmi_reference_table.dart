@@ -26,6 +26,7 @@ class BmiReferenceTable extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
+
             ...rows.map(
               (row) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
