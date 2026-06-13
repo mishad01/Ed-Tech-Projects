@@ -75,6 +75,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gauge_indicator:
+    dependency: "direct main"
+    description:
+      name: gauge_indicator
+      sha256: c1d4b35dc24c47faea682df54fe202efbd8902d9de2d7148becf19718047ac71
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -210,4 +218,4 @@ packages:
     version: "15.2.0"
 sdks:
   dart: ">=3.10.8 <4.0.0"
-  flutter: ">=3.18.0-18.0.pre.54"
+  flutter: ">=3.35.0"

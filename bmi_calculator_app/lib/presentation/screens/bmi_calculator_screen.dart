@@ -1,6 +1,7 @@
 import 'package:bmi_calculator_app/core/app_colors.dart';
 import 'package:bmi_calculator_app/presentation/widgets/bmi_reference_table.dart';
 import 'package:bmi_calculator_app/presentation/widgets/input_card.dart';
+import 'package:bmi_calculator_app/presentation/widgets/result_card.dart';
 import 'package:flutter/material.dart';
 
 class BmiCalculatorScreen extends StatefulWidget {
@@ -20,6 +21,8 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
   Color _categoryColor = AppColors.normal;
 
   void _calculate() {
+    if (!_formKey.currentState!.validate()) return;
+
     final heightCm = double.parse(_heightController.text);
     final weightKg = double.parse(_weightController.text);
 
@@ -65,36 +68,45 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('BMI Calculator')),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: .stretch,
-            spacing: 16,
-            children: [
-              InputCard(
-                heightController: _heightController,
-                weightController: _weightController,
-              ),
-              ElevatedButton(
-                onPressed: _calculate,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryButton,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 12,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(22.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: .stretch,
+              spacing: 16,
+              children: [
+                InputCard(
+                  heightController: _heightController,
+                  weightController: _weightController,
                 ),
-                child: Text('Calculate'),
-              ),
-              Text(_bmi.toString()),
-              BmiReferenceTable(),
-            ],
+                ElevatedButton(
+                  onPressed: _calculate,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryButton,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text('Calculate'),
+                ),
+                if (_bmi != null) ...[
+                  ResultCard(
+                    bmi: _bmi!,
+                    category: _category,
+                    categoryColor: _categoryColor,
+                  ),
+                  TextButton(onPressed: _reset, child: Text('Reset')),
+                ],
+                BmiReferenceTable(),
+              ],
+            ),
           ),
         ),
       ),
