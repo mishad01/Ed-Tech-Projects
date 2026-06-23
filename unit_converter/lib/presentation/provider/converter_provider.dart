@@ -25,6 +25,7 @@ class ConverterProvider extends ChangeNotifier {
     _selectedCategoryIndex = index;
     _fromUnit = _currentUnits[0];
     _toUnit = _currentUnits[1];
+    _inputText = '';
     notifyListeners();
   }
 
