@@ -21,20 +21,33 @@ class SongListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: AppColors.primary.withValues(alpha: 0.2),
-        child: Text(
-          '${index + 1}',
-          style: const TextStyle(color: AppColors.primary),
+      leading: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isSelcted ? AppColors.primary.withValues(alpha: 0.2) : null,
+        ),
+        child: Center(
+          child: Text(
+            '${index + 1}',
+            style: TextStyle(
+              color: isSelcted ? AppColors.primary : AppColors.textPrimary,
+            ),
+          ),
         ),
       ),
       title: Text(
         song.title,
-        style: const TextStyle(color: AppColors.textSecondary),
+        style: TextStyle(
+          color: isSelcted ? AppColors.primary : AppColors.textPrimary,
+        ),
       ),
       subtitle: Text(
         song.artist,
-        style: const TextStyle(color: AppColors.textSecondary),
+        style: TextStyle(
+          color: isSelcted ? AppColors.primary : AppColors.textPrimary,
+        ),
       ),
       trailing: isSelcted
           ? Icon(isPlaying ? Icons.pause : Icons.play_arrow)
