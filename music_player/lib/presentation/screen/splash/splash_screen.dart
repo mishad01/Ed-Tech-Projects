@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/core/constants/app_colors.dart';
 import 'package:music_player/core/constants/app_strings.dart';
+import 'package:music_player/presentation/screen/home/screen/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
