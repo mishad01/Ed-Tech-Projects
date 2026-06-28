@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:receipe_book/core/app_colors.dart';
 import 'package:receipe_book/core/app_strings.dart';
+import 'package:receipe_book/presentation/features/screens/home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -37,11 +38,10 @@ class _SplashScreenState extends State<SplashScreen>
 
   void _navigateToHome() {
     if (!mounted) return;
-    // TODO: replace with the home screen once it exists.
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(builder: (_) => const HomeScreen()),
-    // );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const HomeScreen()),
+    );
   }
 
   @override
