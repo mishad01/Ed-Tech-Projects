@@ -40,4 +40,6 @@ class AppStrings {
       'https://images.stockcake.com/public/e/7/1/e71ca2d8-cda0-461f-9d70-1e3c0dcb2d3f_large/handsome-man-portrait-stockcake.jpg';
 
   // Item details Api - https://api.spoonacular.com/recipes/798400/information?apiKey=93ed1c51fb2745339440843df604c23a
+  // Category - https://api.spoonacular.com/recipes/complexSearch?apiKey=93ed1c51fb2745339440843df604c23a&cuisine=Italian
+  // Search - https://api.spoonacular.com/recipes/complexSearch?apiKey=93ed1c51fb2745339440843df604c23a&query=pasta
 }
