@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_lite/core/app_colors.dart';
 import 'package:youtube_lite/core/app_strings.dart';
-import 'package:youtube_lite/presentation/home/screen/home_screen.dart';
+import 'package:youtube_lite/presentation/screen/home/screen/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

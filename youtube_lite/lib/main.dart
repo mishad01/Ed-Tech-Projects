@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
           bodyColor: AppColors.textPrimary,
           displayColor: AppColors.textPrimary,
         ),
+        iconTheme: IconThemeData(color: AppColors.textPrimary),
       ),
       home: const SplashScreen(),
     );
