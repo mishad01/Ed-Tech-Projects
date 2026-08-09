@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:llm_chat_app/core/constans/app_colors.dart';
 import 'package:llm_chat_app/core/constans/app_strings.dart';
 import 'package:llm_chat_app/presentation/chat/widget/chat_input_field.dart';
+import 'package:llm_chat_app/presentation/chat/widget/message_bubble.dart';
 import 'package:llm_chat_app/presentation/provider/chat_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -73,15 +74,36 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Consumer<ChatProvider>(
         builder: (context, provider, child) {
-          return Column(
-            children: [
-              ChatInputField(
-                isLoading: false,
-                onSend: (message) {
-                  // Handle sending the message
-                },
-              ),
-            ],
+          return SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: provider.messages.isEmpty && !provider.isLoading
+                      ? Center(child: Text('No messages yet'))
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListView.builder(
+                            controller: _scrollController,
+                            itemCount: provider.messages.length,
+                            itemBuilder: (context, index) {
+                              final message = provider.messages[index];
+                              return MessageBubble(message: message);
+                            },
+                          ),
+                        ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ChatInputField(
+                    isLoading: false,
+                    onSend: (message) {
+                      provider.sendMessage(message);
+                      scrollToBottom();
+                    },
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

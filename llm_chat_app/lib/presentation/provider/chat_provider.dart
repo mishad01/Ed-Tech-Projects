@@ -34,9 +34,6 @@ class ChatProvider extends ChangeNotifier {
       _messages.add(
         MessageModel(role: 'assistant', text: replyText, time: DateTime.now()),
       );
-    } on TimeoutException catch (e) {
-      print('[Chat] TimeoutException: $e');
-      _errorMessage = AppStrings.errorTimeout;
     } on SocketException catch (e) {
       print('[Chat] SocketException: $e');
       _errorMessage = AppStrings.errorNoInternet;
