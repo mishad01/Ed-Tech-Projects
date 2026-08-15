@@ -15,6 +15,8 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
+  bool _isImage = false;
+
   void scrollToBottom() {
     if (_scrollController.hasClients) {
       _scrollController.animateTo(
@@ -23,6 +25,12 @@ class _ChatScreenState extends State<ChatScreen> {
         curve: Curves.easeOut,
       );
     }
+  }
+
+  void _toggleInputMode() {
+    setState(() {
+      _isImage = !_isImage;
+    });
   }
 
   @override
@@ -71,6 +79,15 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              _isImage ? Icons.image_outlined : Icons.chat_bubble_outline,
+              color: Colors.white,
+            ),
+            onPressed: _toggleInputMode,
+          ),
+        ],
       ),
       body: Consumer<ChatProvider>(
         builder: (context, provider, child) {
@@ -96,8 +113,16 @@ class _ChatScreenState extends State<ChatScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: ChatInputField(
                     isLoading: false,
+                    hintText: _isImage
+                        ? 'Send an image...'
+                        : 'Type a message...',
+                    icon: _isImage ? Icons.auto_awesome : Icons.send,
                     onSend: (message) {
-                      provider.sendMessage(message);
+                      if (_isImage) {
+                        provider.generateImage(message);
+                      } else {
+                        provider.sendMessage(message);
+                      }
                       scrollToBottom();
                     },
                   ),

@@ -40,14 +40,26 @@ class MessageBubble extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              message.text,
-              style: TextStyle(
-                color: isUser ? AppColors.userText : AppColors.botText,
-                fontSize: 15,
-                height: 1.4,
+            if (message.hasImage) ...[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.memory(
+                  message.imageBytes!,
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
+              const SizedBox(height: 8),
+            ] else
+              Text(
+                message.text,
+                style: TextStyle(
+                  color: isUser ? AppColors.userText : AppColors.botText,
+                  fontSize: 15,
+                  height: 1.4,
+                ),
+              ),
             const SizedBox(height: 4),
             Text(
               _formatTime(message.time),

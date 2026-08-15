@@ -8,6 +8,7 @@ class ChatInputField extends StatefulWidget {
     required this.isLoading,
     this.hintText,
     required this.onSend,
+    this.icon,
   });
   final bool isLoading;
   final String? hintText;
@@ -27,6 +28,13 @@ class _ChatInputFieldState extends State<ChatInputField> {
       widget.onSend(text);
       _controller.clear();
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
   }
 
   @override
