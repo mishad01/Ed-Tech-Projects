@@ -1,5 +1,5 @@
 import 'package:bkash_dummy_app/core/app_colors.dart';
-import 'package:bkash_dummy_app/presentation/screens/home/view/home_screen.dart';
+import 'package:bkash_dummy_app/presentation/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,7 +16,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _animController = AnimationController(
       vsync: this,
@@ -29,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(Duration(seconds: 2), () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     });
   }

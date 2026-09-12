@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class HomeProvider extends ChangeNotifier {
   final List<HomeMenuItemModel> _allItem = HomeMenuItemModel.sampleData;
+
   bool _isExpanded = false;
   bool get isExpanded => _isExpanded;
 

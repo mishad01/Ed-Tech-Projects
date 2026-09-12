@@ -30,6 +30,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
                   color: AppColors.iconCircleBg,
                 ),
               ),
+              SizedBox(height: 12),
               _BalanceCheckButton(),
             ],
           ),
